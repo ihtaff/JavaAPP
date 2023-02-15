@@ -22,6 +22,7 @@ pipeline {
       steps{
         sh 'cp /var/lib/jenkins/workspace/JavaApp/target/WebApp.war /home/mohssine/prod/apache-tomcat-9.0.71/webapps/'
         sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/catalina.sh stop'
+        sh 'sleep 2'
         sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/catalina.sh start'
       }
     
