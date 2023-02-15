@@ -18,5 +18,11 @@ pipeline {
       sh 'mvn clean package'
        }
     }
+    stage('Deploy to Tomcat'){
+      steps{
+        sh 'curl -T /var/lib/jenkins/workspace/JavaApp/target/WebApp.war http://tomcat:tomcat@localhost:8089/manager/text/deploy?path=/&update=true'
+      }
+    
+    }
   }
 }
