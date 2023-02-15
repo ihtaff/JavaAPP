@@ -24,7 +24,7 @@ pipeline {
         echo 'Restarting Tomcat.................'
         sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh'
         sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/shutdown.sh'
-        sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh &'
+        sh 'nohup /home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh &'
       }
     
     }
