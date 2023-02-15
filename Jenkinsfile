@@ -25,6 +25,7 @@ pipeline {
         
         sh 'nohup /home/mohssine/prod/apache-tomcat-9.0.71/bin/shutdown.sh'
         sh 'nohup /home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh'
+        sleep(20)
       }
     
     }
