@@ -22,11 +22,8 @@ pipeline {
       steps{
         sh 'cp /var/lib/jenkins/workspace/JavaApp/target/WebApp.war /home/mohssine/prod/apache-tomcat-9.0.71/webapps/'
         echo 'Restarting Tomcat.................'
-        sh ''' 
-                cd /home/mohssine/prod/apache-tomcat-9.0.71/bin
-                ./shutdown.sh
-                ./startup.sh
-            '''
+        sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/shutdown.sh'
+        sh '/home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh'
       }
     
     }
