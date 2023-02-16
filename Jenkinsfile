@@ -25,7 +25,8 @@ pipeline {
     
     stage ('Source Composition Analysis') {
       steps {
-         dependencyCheck additionalArguments: '--format HTML', odcInstallation: 'Dependency-Check'
+         dependencyCheck additionalArguments: '--format XML', odcInstallation: 'Dependency-Check'
+         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
       }
     }
     
