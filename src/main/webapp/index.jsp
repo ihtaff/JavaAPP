@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Mohssine Fathi Pipeline</title>
+    <title>Mohssine Fathi Pipeline Devops</title>
 
 
     <!-- Custom styles for this template -->
