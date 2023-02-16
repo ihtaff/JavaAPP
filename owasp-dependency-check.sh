@@ -11,6 +11,7 @@ if [ ! -d "$DATA_DIRECTORY" ]; then
 
     mkdir -p "$REPORT_DIRECTORY"
     chmod -R 777 "$REPORT_DIRECTORY"
+    chmod -R 777 /usr/share/dependency-check/data/cache
 fi 
 
 # Make sure we are using the latest version
