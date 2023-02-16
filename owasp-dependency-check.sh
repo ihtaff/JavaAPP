@@ -28,6 +28,8 @@ docker run --rm \
     --scan /src \
     --format "ALL" \
     --project "$DC_PROJECT" \
+    -e user=jenkins \
+    -u $(id -u jenkins):$(id -g jenkins) \    
     --out /report
     # Use suppression like this: (where /src == $pwd)
     # --suppression "/src/security/dependency-check-suppression.xml"
