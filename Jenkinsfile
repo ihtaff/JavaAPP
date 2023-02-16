@@ -1,5 +1,9 @@
 pipeline {
   agent any 
+  
+  environment {
+        passapache = "apache"
+    }
   tools {
     maven 'Maven'
   }
@@ -18,15 +22,13 @@ pipeline {
       sh 'mvn clean package'
        }
     }
-    stage('Deploy to Tomcat'){
-      steps{
-        sh 'cp /var/lib/jenkins/workspace/JavaApp/target/*.war /home/mohssine/prod/apache-tomcat-9.0.71/webapps/'
-        echo 'Restarting Tomcat.................'
-        
-        sh 'nohup /home/mohssine/prod/apache-tomcat-9.0.71/bin/shutdown.sh &'
-        sh 'nohup /home/mohssine/prod/apache-tomcat-9.0.71/bin/startup.sh &'
-      }
-    
+
+       stage ('Deploy-To-Tomcat') {
+            steps {
+           sshagent(['tomcat']) {
+                sh 'scp -o StrictHostKeyChecking=no target/*.war tomcat@51.145.227.244:/usr/share/apache-tomcat/webapps/webapp.war'
+              }      
+           }       
     }
   }
 }
