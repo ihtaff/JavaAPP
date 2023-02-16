@@ -3,3 +3,69 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
+.jumbotron {
+  background-color: #FDB813;
+  color: #003D7C;
+}
+
+.btn-primary {
+  background-color: #003D7C;
+  border-color: #003D7C;
+}
+
+.btn-primary:hover {
+  background-color: #002C5B;
+  border-color: #002C5B;
+}
+
+.btn-default {
+  background-color: #003D7C;
+  border-color: #003D7C;
+  color: #fff;
+}
+
+.btn-default:hover {
+  background-color: #002C5B;
+  border-color: #002C5B;
+  color: #fff;
+}
+
+.navbar-inverse {
+  background-color: #003D7C;
+  border-color: #003D7C;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #FDB813;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #FDB813;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #FDB813;
+  background-color: #003D7C;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: #FDB813;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: #FDB813;
+}
+
