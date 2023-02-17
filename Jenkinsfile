@@ -18,22 +18,23 @@ pipeline {
    
     
 
-    stage ('Source Composition Analysis') {
-      steps {
-         dependencyCheck additionalArguments: '--format XML', odcInstallation: 'Dependency-Check'
-      }
-    }
-        stage ('Publish the report in jenkins') {
-      steps {
-         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-      }
-    }
-    
+
     stage ('Build') {
       steps {
       sh 'mvn clean package'
        }
     }
+     stage ('Source Composition Analysis') {
+      steps {
+         dependencyCheck additionalArguments: '--format XML', odcInstallation: 'Dependency-Check'
+      }
+    }
+     stage ('Publish the report in jenkins') {
+      steps {
+         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+      }
+    }
+    
 
        stage ('Deploy-To-Tomcat') {
             steps {
