@@ -51,8 +51,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Leyton Pipeline</h1>
-        <p>This is my pipeline. </p>
+        <h1>Leyton Devops secure Pipeline </h1>
+        <p>This is my secure pipeline . </p>
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
     </div>
 </div>
