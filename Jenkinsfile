@@ -31,7 +31,7 @@ pipeline {
     }
      stage ('Publish the report in jenkins') {
       steps {
-        dependencyCheckPublisher pattern: 'dependency-check-report.xml', stopBuild: true, unstableTotalCritical: 70, unstableTotalHigh: 70
+        dependencyCheckPublisher pattern: 'dependency-check-report.xml', stopBuild: true, unstableNewCritical: 1, unstableNewHigh: 1, unstableNewMedium: 1, unstableTotalCritical: 70, unstableTotalHigh: 70
         
       }
     }
