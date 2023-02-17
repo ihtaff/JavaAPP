@@ -36,6 +36,16 @@ pipeline {
               }      
            }       
     }
+    
+    stage ('Deploy') {
+    steps{
+        sshagent(credentials : ['tomcat']) {
+            sh 'ssh -o StrictHostKeyChecking=no tomcat@20.126.74.56 uptime'
+            sh 'ssh -v tomcat@20.126.74.56'
+            sh 'scp target/*.war tomcat@20.126.74.56:/opt/tomcat/webapps/webapp.war'
+        }
+    }
+}
   }
 
 
