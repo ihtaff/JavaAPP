@@ -52,21 +52,7 @@ pipeline {
     
 
 
-  post {
-    always {
-        echo 'One way or another, I have finished'
-        deleteDir() /*IMPORTANT FOR ALL PIPELINES! clean up our workspace, to avoid saturating the Jenkins server storage*/
-    }
-    success {
-        echo 'I succeeded!'
-    }
-    unstable {
-        echo 'I am unstable :/'
-    }
-    failure {
-        echo 'I failed :('
-    }
-}
+
 
 
 
