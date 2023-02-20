@@ -26,7 +26,7 @@ pipeline {
       steps {
         withSonarQubeEnv('sonar') {
           sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=dependency-check-report.html'
-          sh 'cat target/sonar/report-task.txt'
+          sh 'cat dependency-check-report.json'
         }
       }
     }
