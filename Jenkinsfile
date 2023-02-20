@@ -49,14 +49,7 @@ pipeline {
     }
     
 
-       stage ('Deploy-To-Tomcat') {
-            steps {
-           sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war apache@51.145.227.244:/opt/tomcat/webapps/webapp.war'
-              }      
-           }       
-    }
-  }
+
   post {
     always {
         echo 'One way or another, I have finished'
@@ -72,10 +65,6 @@ pipeline {
         echo 'I failed :('
     }
 }
-
-
-
-
 
 
 
