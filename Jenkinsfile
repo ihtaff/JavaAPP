@@ -22,7 +22,7 @@ pipeline {
     
     stage('Dependency Check Report') {
         steps {
-                dependencyCheck additionalArguments: '--format XML --format HTML --format JSON', odcInstallation: 'dependency-check-7.2.0'
+                dependencyCheck additionalArguments: '--format XML ', odcInstallation: 'dependency-check-7.2.0'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                 }    
       }  
