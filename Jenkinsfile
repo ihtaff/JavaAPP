@@ -14,13 +14,12 @@ pipeline {
             ''' 
       }
     }
-    stage('Code checkout'){
-      steps{
-        checkout scmGit(branches: [[name: '*/*']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP.git']])
-      }
-    }
-    
-    
+
+    stages {
+        stage('Code checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
+        }
     
      stage ('Source Composition Analysis') {
       steps {
