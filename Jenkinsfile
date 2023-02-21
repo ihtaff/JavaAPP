@@ -20,17 +20,16 @@ pipeline {
                 checkout scmGit(branches: [[name: '**']], extensions: [checkoutOption(1), cloneOption(noTags: false, reference: '', shallow: false, timeout: 1)], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
     
-      stage ('OWASP Dependency-Check Vulnerabilities') {
-          steps {
+    stage('Dependency Check Report') {
+            steps {
                 dependencyCheck additionalArguments: ''' 
                     -o "./" 
                     -s "./"
                     -f "ALL" 
-                    --prettyPrint''', odcInstallation: 'OWASP-DC'
-
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-            }
-        }     
+                    --prettyPrint''', odcInstallation: 'dependency-check-7.2.0'
+              dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                   }    
+                  }   
     
    stage ('SAST') {
       steps {
