@@ -24,7 +24,7 @@ pipeline {
     }
      stage ('Source Composition Analysis') {
       steps {
-        dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Dependency-Check'
+        dependencyCheck additionalArguments: '--format HTML --format XML --format JSON', odcInstallation: 'Dependency-Check'
       }
     }
      stage ('Publish the report in jenkins') {
