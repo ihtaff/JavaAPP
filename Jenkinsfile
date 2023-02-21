@@ -15,13 +15,7 @@ pipeline {
       }
     }
     
-   stage ('Check-Git-Secrets') {
-      steps {
-        sh 'rm trufflehog || true'
-        sh 'docker run gesellix/trufflehog --json https://github.com/ihtaff/JavaAPP.git > trufflehog'
-        sh 'cat trufflehog'
-      }
-    }
+
 
     stage ('Build') {
       steps {
@@ -50,21 +44,7 @@ pipeline {
 
     
   }
-  post {
-    always {
-        echo 'One way or another, I have finished'
-        deleteDir() /*IMPORTANT FOR ALL PIPELINES! clean up our workspace, to avoid saturating the Jenkins server storage*/
-    }
-    success {
-        echo 'I succeeded!'
-    }
-    unstable {
-        echo 'I am unstable :/'
-    }
-    failure {
-        echo 'I failed :('
-    }
-}
+
 
     
 
