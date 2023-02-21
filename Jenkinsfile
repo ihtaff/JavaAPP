@@ -15,8 +15,7 @@ pipeline {
       }
     }
 
-    stages {
-        stage('Code checkout') {
+     stage('Code checkout') {
             steps {
                 checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
