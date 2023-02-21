@@ -15,6 +15,12 @@
     <artifactId>jackson-databind</artifactId>
     <version>2.9.8</version>
 </dependency>
+    <dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty</artifactId>
+    <version>3.9.0.Final</version>
+</dependency>
+
     
 
 
