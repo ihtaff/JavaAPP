@@ -17,7 +17,7 @@ pipeline {
 
      stage('Code checkout') {
             steps {
-                checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
+                checkout scmGit(branches: [[name: '**']], extensions: [checkoutOption(240), cloneOption(noTags: false, reference: '', shallow: false, timeout: 240)], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
     
      stage ('Source Composition Analysis') {
