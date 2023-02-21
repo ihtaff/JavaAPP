@@ -20,17 +20,20 @@ pipeline {
                 checkout scmGit(branches: [[name: '**']], extensions: [checkoutOption(1), cloneOption(noTags: false, reference: '', shallow: false, timeout: 1)], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
     
-     stage ('Source Composition Analysis') {
-      steps {
-         dependencyCheck additionalArguments: '--format XML --format HTML --format JSON', odcInstallation: 'Dependency-Check'
-      }
+     stages {
+        stage ('OWASP Dependency-Check Vulnerabilities') {
+            steps {
+                dependencyCheck additionalArguments: ''' 
+                    -o "./" 
+                    -s "./"
+                    -f "ALL" 
+                    --prettyPrint''', odcInstallation: 'OWASP-DC'
+
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }     
     }
-     stage ('Publish the report in jenkins') {
-      steps {
-        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-        
-      }
-    }
+    
    stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
