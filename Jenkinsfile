@@ -23,11 +23,7 @@ pipeline {
       }
     }
 
-    stage ('Build') {
-      steps {
-      sh 'mvn clean package'
-       }
-    }
+    
      stage ('Source Composition Analysis') {
       steps {
          dependencyCheck additionalArguments: '--format XML --format HTML --format JSON', odcInstallation: 'Dependency-Check'
@@ -47,6 +43,13 @@ pipeline {
         }
       }
     }
+    
+    stage ('Build') {
+      steps {
+      sh 'mvn clean package'
+       }
+    }
+
 
     
   }
