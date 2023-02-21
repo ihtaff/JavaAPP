@@ -21,6 +21,7 @@ pipeline {
     
     stage ('Source Composition Analysis') {
       steps {
+        sh 'rm dependency-check-report*'
         dependencyCheck additionalArguments: '--format HTML --format XML --format JSON --disableOssIndex true', odcInstallation: 'Dependency-Check'
       }
     }
