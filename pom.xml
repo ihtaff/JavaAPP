@@ -10,11 +10,7 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     
-<dependency>
-    <groupId>io.netty</groupId>
-    <artifactId>netty</artifactId>
-    <version>3.9.0.Final</version>
-</dependency>
+
 
 
 
