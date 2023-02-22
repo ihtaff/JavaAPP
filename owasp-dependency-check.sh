@@ -18,8 +18,7 @@ fi
 # Make sure we are using the latest version
 docker pull owasp/dependency-check:$DC_VERSION
 
-docker run --rm \
-    -e user=$USER \
+docker run -e user=$USER \
     -u $(id -u ${USER}):$(id -g ${USER}) \
     --volume $(pwd):/src:z \
     --volume "$DATA_DIRECTORY":/usr/share/dependency-check/data:z \
