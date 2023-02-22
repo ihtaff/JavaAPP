@@ -31,7 +31,7 @@ pipeline {
          sh 'wget "https://raw.githubusercontent.com/ihtaff/JavaAPP/main/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
-         dependencyCheckPublisher pattern: '/odc-reports/dependency-check-report.xml'
+         dependencyCheckPublisher pattern: '/var/lib/jenkins/workspace/JavaProject/odc-reports/dependency-check-report.xml'
         
       }
     }
