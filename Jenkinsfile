@@ -25,7 +25,7 @@ pipeline {
          sh 'rm dependency-check-report* || rm owasp* || true'
          sh 'wget "https://raw.githubusercontent.com/ihtaff/JavaAPP/main/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
-         sh 'echo "Kontira@@2022" | sudo -S sh owasp-dependency-check.sh'
+         sh 'sh owasp-dependency-check.sh'
         
         
       }
