@@ -19,17 +19,21 @@ pipeline {
                 checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
     
-       stage('SCA') {
-  steps {
-    sh '''
-      wget https://dl.bintray.com/jeremy-long/owasp/dependency-check-5.3.2-release.zip
-      unzip dependency-check-5.3.2-release.zip
-      cd dependency-check-5.3.2-release/bin
-      sh ./dependency-check.sh --scan /var/lib/jenkins/workspace/JavaProject --out /var/lib/jenkins/workspace/JavaProject/odc-reports --format "HTML" --project "My Project"
-    '''
-  }
-}
+    stage ('Source Composition Analysis') {
+      steps {
+         sh 'rm owasp* || true'
+         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
+         sh 'chmod +x owasp-dependency-check.sh'
+         sh 'bash owasp-dependency-check.sh'
+        
+      }
+    }
     
+    stage ('Build') {
+      steps {
+      sh 'mvn clean package'
+       }
+    }
 
 
     
