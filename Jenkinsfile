@@ -32,7 +32,7 @@ pipeline {
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
          dependencyCheck additionalArguments: '--format HTML --format JSON --format XML', odcInstallation: 'DC'
-         dependencyCheckPublisher pattern: '/odc-reports/dependency-check-report.xml'
+         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
         
       }
     }
