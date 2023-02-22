@@ -24,7 +24,7 @@ docker run -e user=$USER \
     --volume "$DATA_DIRECTORY":/usr/share/dependency-check/data:z \
     --volume $(pwd)/odc-reports:/report:z \
     owasp/dependency-check:$DC_VERSION \
-    --scan pom.xml \
+    --scan /* \
     --format "ALL" \
     --project "$DC_PROJECT" 
     
