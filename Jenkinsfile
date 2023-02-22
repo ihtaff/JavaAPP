@@ -19,29 +19,27 @@ pipeline {
                 checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
     
+    stage ('Build') {
+      steps {
+      sh 'mvn clean package'
+       }
+    }
+    
     stage ('Source Composition Analysis') {
       steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
+         sh 'rm /odc-reports/* || rm owasp* || true'
+         sh 'wget "https://raw.githubusercontent.com/ihtaff/JavaAPP/main/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
         
       }
     }
     
-    stage ('Build') {
-      steps {
-      sh 'mvn clean package'
-       }
-    }
+
 
 
     
   }
-
-
-
-
 
 
 
