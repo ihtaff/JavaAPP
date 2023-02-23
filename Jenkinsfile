@@ -5,6 +5,12 @@ pipeline {
   tools {
     maven 'Maven'
   }
+  environment {
+    NEXUS_LOGIN = "nexus"
+  
+  }
+
+  
   stages {
     stage ('Initialize') {
       steps {
@@ -52,6 +58,22 @@ pipeline {
           }
         }
       }
+    
+    nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: 'http://172.16.84.136:8081',
+        groupId: 'leyton',
+        version: '1.0',
+        repository: 'maven-snapshots',
+      credentialsId: "${NEXUS_LOGIN}",
+        artifacts: [
+            [artifactId: 'JavaProject',
+             classifier: '',
+             file: 'target/WebApp.war',
+             type: 'war']
+        ]
+     )
   
     
      
