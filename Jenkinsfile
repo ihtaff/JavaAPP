@@ -67,7 +67,7 @@ pipeline {
           protocol: 'http',
           nexusUrl: '172.16.84.136:8081',
           groupId: 'leyton',
-          version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+          version: "${env.BUILD_ID}"+'-SNAPSHOT',
           repository: 'maven-snapshots',
           credentialsId: "${NEXUS_LOGIN}",
             artifacts: [
