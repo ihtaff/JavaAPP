@@ -65,7 +65,7 @@ pipeline {
         
           nexusVersion: 'nexus3',
           protocol: 'http',
-          nexusUrl: '172.16.84.136:8081',
+          nexusUrl: '172.17.0.1:8081',
           groupId: 'leyton',
           version: "${env.BUILD_ID}"+'-SNAPSHOT',
           repository: 'maven-snapshots',
