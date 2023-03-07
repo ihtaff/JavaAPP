@@ -24,9 +24,7 @@ pipeline {
             steps {
                 checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ihtaff/JavaAPP']])        }
         }
-    
 
-    
     stage ('Build') {
       steps {
       sh 'mvn -s /etc/maven/settings.xml clean install'
@@ -44,11 +42,7 @@ pipeline {
             }
             }
     
-     
 
-
-
-    
   }
 
 
