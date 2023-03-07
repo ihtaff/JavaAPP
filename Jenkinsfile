@@ -29,7 +29,7 @@ pipeline {
     
     stage ('Build') {
       steps {
-      sh 'mvn clean package'
+      sh 'mvn -s /opt/apache-maven-3.6.3/conf/settings.xml clean install'
        }
     }
     
