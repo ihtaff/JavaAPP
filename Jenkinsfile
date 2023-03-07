@@ -27,7 +27,6 @@ pipeline {
 
     stage ('Build') {
       steps {
-      sh 'rm -r ~/.m2/repository/com/example/nexus-proxy/*'
       sh 'mvn -s /etc/maven/settings.xml clean install'
        }
     }
