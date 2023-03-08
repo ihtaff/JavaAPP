@@ -34,8 +34,7 @@ pipeline {
     stage ('Create Dependency JSON') {
       steps {
         sh 'cd dependencies && ls > dependencies.txt'
-        sh 'jq -R -s -f dependencies.jq dependencies.txt > dependencies.json'
-        sh 'cat dependencies.json'
+        sh 'cat dependencies.txt'
       }
     }
 
