@@ -32,21 +32,11 @@ pipeline {
        }
     }
 
-        stage('Extract dependencies') {
-            steps {
-                script {
-                    def pomFile = readFile('pom.xml')
-                    def xml = new XmlSlurper().parseText(pomFile)
-                    def dependencies = []
-                    xml.dependencies.dependency.each {
-                        dependencies.add([groupId: it.groupId.text(), artifactId: it.artifactId.text(), version: it.version.text()])
-                    }
-                    writeFile(file: 'dependencies.json', text: groovy.json.JsonOutput.toJson(dependencies))
-                }
-            }
+    stage('Extract Dependencies') {
+        steps {
+            sh 'python3 ExtractDependencies.py'
         }
-    
-
+    }
 
 
     
