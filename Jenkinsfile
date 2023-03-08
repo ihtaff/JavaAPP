@@ -31,18 +31,32 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-stage('Extract dependencies') {
+stage('Extract Dependencies') {
   steps {
-    sh '''
-      mvn -B dependency:list -DoutputFile=dependencies.txt
-      sed -i '1,/The following/d' dependencies.txt
-      sed -i '/The following/d' dependencies.txt
-      awk '{print "{\"groupId\":\""$1"\",\"artifactId\":\""$2"\",\"version\":\""$4"\"},"}' dependencies.txt > dependencies.json
-      sed -i '$ s/,$//' dependencies.json
-    '''
+    script {
+      // Lire le fichier pom.xml
+      def xmlContent = readFile('pom.xml')
+
+      // Utiliser XmlSlurper pour extraire les informations des dépendances
+      def xml = new XmlSlurper().parseText(xmlContent)
+      def dependencies = xml.dependencies.dependency
+      
+      // Créer un objet JSON avec les informations des dépendances
+      def dependenciesJson = []
+      dependencies.each { dependency ->
+        def dependencyJson = [
+          groupId: dependency.groupId.text(),
+          artifactId: dependency.artifactId.text(),
+          version: dependency.version.text()
+        ]
+        dependenciesJson.add(dependencyJson)
+      }
+
+      // Écrire l'objet JSON dans un fichier
+      writeFile file: 'dependencies.json', text: dependenciesJson.toString()
+    }
   }
 }
-
 
 }
 
