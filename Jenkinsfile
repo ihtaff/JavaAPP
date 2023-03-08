@@ -27,7 +27,7 @@ pipeline {
 
     stage ('Build') {
       steps {
-      sh 'rm -r dependencies/*'
+      sh 'mkdir dependencies'
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
