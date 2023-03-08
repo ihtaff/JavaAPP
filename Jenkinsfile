@@ -27,7 +27,7 @@ pipeline {
 
     stage ('Build') {
       steps {
-      sh 'rm -r .m2/repository/*'
+      sh 'rm -r /root/.m2/repository/*'
       sh 'mvn -s /etc/maven/settings.xml clean install'
       sh 'mvn package'
        }
