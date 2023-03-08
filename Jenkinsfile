@@ -34,7 +34,11 @@ pipeline {
     stage ('Create Dependency JSON') {
       steps {
         sh 'cd dependencies && ls > dependencies.txt'
-        sh 'cd dependencies && cat dependencies.txt'
+        sh '''
+          cd dependencies
+          awk 'BEGIN {print "{\"dependencies\": ["} {print "{\"name\": \"" $1 "\"},"} END {print "]}" }' dependencies.txt > dependencies.json
+           '''
+        sh 'cd dependencies && cat dependencies.json'
       }
     }
 
