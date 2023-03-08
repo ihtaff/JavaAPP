@@ -33,10 +33,14 @@ pipeline {
     }
      stage('Extract Dependencies') {
   steps {
-    sh "xmlstarlet sel -t -m '//dependency' -v 'concat(groupId, \":\", artifactId, \":\", version)' -n pom.xml"
+    sh '''
+      mvn dependency:list -DoutputFile=dependencies.txt
+      sed -n '/The following/a\----------------------------------------' dependencies.txt > temp.txt
+      mv temp.txt dependencies.txt
+      awk '{print $2 "\t" $4}' dependencies.txt > dependencies.tsv
+    '''
   }
 }
-
 
 }
 
