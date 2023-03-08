@@ -31,26 +31,38 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-stage('Extraction des dependances') {
+stage ('Extraire les dépendences') {
     steps {
         sh '''
-                cd JavaProject
-                # Lecture du fichier pom.xml
-                fichier="pom.xml"
-                # Creation fichier JSON
-                fichier_json="dependencies.json"
-                # Extraction des noms et versions des dépendances
-                cat $fichier | grep -E "<groupId>|<artifactId>|<version>" | sed 's/[<>\/]//g' > $fichier_json
-                # Formatage en JSON
-                sed -i 's/groupId/\"groupId\"/g' $fichier_json
-                sed -i 's/artifactId/\"artifactId\"/g' $fichier_json
-                sed -i 's/version/\"version\"/g' $fichier_json
-                sed -i 'N;s/\n/,/g' $fichier_json
-                echo "[" >> $fichier_json
-                sed -i 's/^/{/' $fichier_json
-                sed -i 's/$/},/' $fichier_json
-                echo "{}]" >> $fichier_json
-            ''' 
+        #!/bin/bash
+        #extraire les dépendences du fichier pom.xml
+        echo "Extraction des dépendences du fichier pom.xml"
+        DEPENDENCIES="$(xmllint --xpath "/project/dependencies/dependency" pom.xml)"
+        echo $DEPENDENCIES
+        echo "============================="
+        #créer le fichier json
+        echo "Création du fichier json..."
+        echo '{' > dependencies.json
+        echo '"dependencies" : [' >> dependencies.json
+        #extraire et parser les dépendences
+        echo "Extraction et parsing des dépendences..."
+        echo "${DEPENDENCIES}" | while IFS= read -r line
+        do 
+            GROUP_ID="$(echo $line | awk -F "groupId" '{ print $2 }' | cut -d '"' -f2)"
+            ARTIFACT_ID="$(echo $line | awk -F "artifactId" '{ print $2 }' | cut -d '"' -f2)"
+            VERSION="$(echo $line | awk -F "version" '{ print $2 }' | cut -d '"' -f2)"
+            echo "{" >> dependencies.json
+            echo '"groupId": "'$GROUP_ID'",' >> dependencies.json
+            echo '"artifactId": "'$ARTIFACT_ID'",' >> dependencies.json
+            echo '"version": "'$VERSION'"' >> dependencies.json
+            echo "}," >> dependencies.json
+        done
+        #formatter le fichier json
+        sed -i '$ s/.$//' dependencies.json
+        echo "]" >> dependencies.json
+        echo "}" >> dependencies.json
+        echo "Fichier json créé avec succès"
+        '''
     }
 }
     
