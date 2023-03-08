@@ -37,8 +37,8 @@ stage('Extract Dependencies') {
       // Lire le fichier pom.xml
       def xmlContent = readFile('pom.xml')
 
-      // Utiliser XmlParser pour extraire les informations des dépendances
-      def xml = new XmlParser().parseText(xmlContent)
+      // Utiliser XmlNode pour extraire les informations des dépendances
+      def xml = new XmlNode(xmlContent)
       def dependencies = xml.dependencies.dependency
       
       // Créer un objet JSON avec les informations des dépendances
