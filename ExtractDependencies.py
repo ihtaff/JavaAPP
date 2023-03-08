@@ -2,7 +2,7 @@ import json
 import xml.etree.ElementTree as ET
 
 # Chemin du fichier pom.xml
-pom_file = 'chemin/vers/votre/pom.xml'
+pom_file = '/var/lib/jenkins/workspace/JavaProject/pom.xml'
 
 # Parse le fichier pom.xml avec ElementTree
 tree = ET.parse(pom_file)
