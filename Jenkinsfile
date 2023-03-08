@@ -31,19 +31,10 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-stage('Extract Dependencies') {
+stage('Extract dependencies') {
     steps {
-        sh '''
-            mvn -f /var/lib/jenkins/workspace/JavaProject/pom.xml dependency:list -DoutputFile=dependencies.txt
-            cat dependencies.txt | grep "\\[INFO\\]    " | awk '{print $2}' | tr ':' '.' | sort | uniq > dependencies.list
-            python -c '
-                import json
-                with open("dependencies.list", "r") as f:
-                    dependencies = f.read().splitlines()
-                with open("dependencies.json", "w") as f:
-                    json.dump(dependencies, f)
-            '
-        '''
+        sh 'mvn -f /var/lib/jenkins/workspace/JavaProject/pom.xml dependency:list -DoutputFile=dependencies.txt'
+        sh 'cat dependencies.txt | grep \\[INFO\\] | awk {print $2} | tr : . | sort | uniq | python -c "import json; with open(\'dependencies.json\', \'w\') as f: dependencies = f.read().splitlines(); json.dump(dependencies, f)"'
     }
 }
 
