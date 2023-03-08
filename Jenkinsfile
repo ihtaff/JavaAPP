@@ -36,7 +36,9 @@ pipeline {
         sh 'cd dependencies && ls > dependencies.txt'
         sh '''
           cd dependencies
-          awk 'BEGIN {print "{\"dependencies\": ["} {print "{\"name\": \"" $1 "\"},"} END {print "{\"name\": \"" $1 "\"}]}" }' dependencies.txt > dependencies.json
+          echo "{\"dependencies\": [" > dependencies.json
+          sed 's/.*/{"name": "&"}/' dependencies.txt | paste -sd "," - >> dependencies.json
+          echo "]}" >> dependencies.json
            '''
         sh 'cd dependencies && cat dependencies.json'
       }
