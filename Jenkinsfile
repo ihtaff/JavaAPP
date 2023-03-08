@@ -34,6 +34,7 @@ pipeline {
      stage('Extract dependencies') {
       steps {
         sh 'mvn -q dependency:tree -DoutputType=json > dependencies.json'
+        sh 'cat dependencies.json'
       }
     }
 
