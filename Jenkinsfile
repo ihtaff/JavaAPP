@@ -31,12 +31,18 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-     stage('Extract dependencies') {
-      steps {
-        sh 'mvn -q dependency:tree -DoutputType=json > dependencies.json'
-        sh 'cat dependencies.json'
-      }
-    }
+stage('Extract dependencies') {
+  steps {
+    sh '''
+      mvn -B dependency:list -DoutputFile=dependencies.txt
+      sed -i '1,/The following/d' dependencies.txt
+      sed -i '/The following/d' dependencies.txt
+      awk '{print "{\"groupId\":\""$1"\",\"artifactId\":\""$2"\",\"version\":\""$4"\"},"}' dependencies.txt > dependencies.json
+      sed -i '$ s/,$//' dependencies.json
+    '''
+  }
+}
+
 
 }
 
