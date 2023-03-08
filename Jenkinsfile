@@ -31,16 +31,21 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-     stage('Extract Dependencies') {
-  steps {
-    sh '''
-      mvn dependency:list -DoutputFile=dependencies.txt
-      sed -n '/The following/a\----------------------------------------' dependencies.txt > temp.txt
-      mv temp.txt dependencies.txt
-      awk '{print $2 "\t" $4}' dependencies.txt > dependencies.tsv
-    '''
-  }
+     stage('Extract dependencies') {
+    steps {
+        script {
+            def pom = readMavenPom file: 'pom.xml'
+            def dependencies = pom.dependencies
+            for (dependency in dependencies) {
+                def groupId = dependency.groupId
+                def artifactId = dependency.artifactId
+                def version = dependency.version
+                println "${groupId}:${artifactId}:${version}"
+            }
+        }
+    }
 }
+
 
 }
 
