@@ -31,36 +31,9 @@ pipeline {
       sh 'mvn -s /etc/maven/settings.xml clean install package -Dmaven.repo.local=/var/lib/jenkins/workspace/JavaProject/dependencies'
        }
     }
-    stage ('Create Dependency JSON') {
-      steps {
-        sh 'cd dependencies && ls > dependencies.txt'
-        sh '''
-          cd dependencies
-          echo "{\"dependencies\": [" > dependencies.json
-          sed 's/.*/{"name": "&"}/' dependencies.txt | paste -sd "," - >> dependencies.json
-          echo "]}" >> dependencies.json
-           '''
-        sh 'cd dependencies && cat dependencies.json'
-      }
-    }
-
 
 }
-  post {
-    always {
-        echo 'One way or another, I have finished'
-        deleteDir() /*IMPORTANT FOR ALL PIPELINES! clean up our workspace, to avoid saturating the Jenkins server storage*/
-    }
-    success {
-        echo 'I succeeded!'
-    }
-    unstable {
-        echo 'I am unstable :/'
-    }
-    failure {
-        echo 'I failed :('
-    }
-}
+
 
 
 }
