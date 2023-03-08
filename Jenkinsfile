@@ -37,8 +37,8 @@ stage('Extract Dependencies') {
       // Lire le fichier pom.xml
       def xmlContent = readFile('pom.xml')
 
-      // Utiliser XmlSlurper pour extraire les informations des dépendances
-      def xml = new groovy.util.XmlSlurper().parseText(xmlContent)
+      // Utiliser XmlParser pour extraire les informations des dépendances
+      def xml = new XmlParser().parseText(xmlContent)
       def dependencies = xml.dependencies.dependency
       
       // Créer un objet JSON avec les informations des dépendances
@@ -46,7 +46,17 @@ stage('Extract Dependencies') {
       dependencies.each { dependency ->
         def dependencyJson = [
           groupId: dependency.groupId.text(),
-          artifactId: dependency.artifactId.text
+          artifactId: dependency.artifactId.text(),
+          version: dependency.version.text()
+        ]
+        dependenciesJson.add(dependencyJson)
+      }
+
+      // Écrire l'objet JSON dans un fichier
+      writeFile file: 'dependencies.json', text: dependenciesJson.toString()
+    }
+  }
+}
 
 }
 
