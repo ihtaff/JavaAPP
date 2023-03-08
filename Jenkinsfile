@@ -32,15 +32,9 @@ pipeline {
        }
     }
      stage('Extract Dependencies') {
-        steps {
-           script {
-                def pom = readMavenPom file: 'pom.xml'
-                def dependencies = pom.getDependencyManagement().getDependencies()
-                for (dependency in dependencies) {
-                    echo "Dependency: ${dependency.groupId}:${dependency.artifactId}:${dependency.version}"
-                }
-            }
-        }
+  steps {
+    sh "xmlstarlet sel -t -m '//dependency' -v 'concat(groupId, \":\", artifactId, \":\", version)' -n pom.xml"
+  }
 }
 
 
