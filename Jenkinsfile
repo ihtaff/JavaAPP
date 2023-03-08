@@ -57,6 +57,7 @@ stage('Extract Dependencies') {
     }
   }
 }
+}
 
 }
 
